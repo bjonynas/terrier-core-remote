@@ -421,7 +421,7 @@ public class TrecTerrier {
 
 			TRECQuerying trecQuerying = null;
 			if(remote){
-				trecQuerying = new RemoteTrecQuerying(remPath, remPrefix, remName);
+				trecQuerying = new RemoteTrecQuerying(remPath, remPrefix, remName, queryexpand);
 			} else{
 				trecQuerying = new LocalTRECQuerying(queryexpand);
 			}

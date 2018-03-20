@@ -18,7 +18,7 @@ public class RemoteTrecQuerying extends TRECQuerying {
     protected String indexPrefix;
     protected String indexName;
 
-    public RemoteTrecQuerying(String path, String prefix, String name) {
+    public RemoteTrecQuerying(String path, String prefix, String name, boolean _queryexpansion) {
         if (path == null || path.equals("")) {
             this.indexPath = ApplicationSetup.TERRIER_INDEX_PATH;
         } else {
@@ -42,6 +42,7 @@ public class RemoteTrecQuerying extends TRECQuerying {
         this.querySource = this.getQueryParser();
         this.printer = getOutputFormat();
         this.resultsCache = getResultsCache();
+        this.queryexpansion = _queryexpansion;
     }
 
     protected void createManager() {
@@ -114,7 +115,6 @@ public class RemoteTrecQuerying extends TRECQuerying {
         srq.addMatchingModel(mModel, wModel);
 
         if (queryexpansion) {
-            //if (srq.getControl("qemodel").length() == 0)
             srq.setControl("qemodel", defaultQEModel);
             srq.setControl("qe", "on");
         }

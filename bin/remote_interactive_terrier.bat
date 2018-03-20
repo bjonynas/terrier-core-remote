@@ -27,7 +27,6 @@ REM --------------------------
 if defined TERRIER_HOME goto run_anyclass
 CALL "%BIN%\fq.bat" "%BIN%\.."
 SET TERRIER_HOME=%FQ%
-echo Set TERRIER_HOME to be %TERRIER_HOME%
 
 :run_anyclass
 %TERRIER_HOME%\bin\anyclass.bat org.terrier.remote_client.RemoteInteractiveQuerying %*

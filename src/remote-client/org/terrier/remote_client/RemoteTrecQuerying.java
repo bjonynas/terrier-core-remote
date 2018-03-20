@@ -14,12 +14,31 @@ import org.terrier.utility.ApplicationSetup;
 
 public class RemoteTrecQuerying extends TRECQuerying {
 
+    protected String indexPath;
+    protected String indexPrefix;
     protected String indexName;
 
-    public RemoteTrecQuerying() {
+    public RemoteTrecQuerying(String path, String prefix, String name) {
+        if (path == null || path.equals("")) {
+            this.indexPath = ApplicationSetup.TERRIER_INDEX_PATH;
+        } else {
+            this.indexPath = path;
+        }
+
+        if (prefix == null || prefix.equals("")) {
+            this.indexPrefix = ApplicationSetup.TERRIER_INDEX_PREFIX;
+        } else {
+            this.indexPrefix = prefix;
+        }
+
+        if (name == null || name.equals("")) {
+            this.indexName = "index";
+        } else {
+            this.indexName = name;
+        }
+
         createManager();
         loadIndex();
-        ApplicationSetup.setProperty("trec.topics", "C:\\Users\\Benas\\work\\terrier-core\\share\\vaswani_npl\\query-text.trec");
         this.querySource = this.getQueryParser();
         this.printer = getOutputFormat();
         this.resultsCache = getResultsCache();
@@ -35,12 +54,8 @@ public class RemoteTrecQuerying extends TRECQuerying {
     protected void loadIndex() {
         long startLoading = System.currentTimeMillis();
         indexName = "index";
-        //String p = System.getProperty("user.dir") +  ApplicationSetup.TERRIER_INDEX_PATH;
-        //String pr = ApplicationSetup.TERRIER_INDEX_PREFIX;
-
         try {
-            ((ApiRemoteManager) queryingManager).importIndex(ApplicationSetup.TERRIER_INDEX_PATH, ApplicationSetup.TERRIER_INDEX_PREFIX, indexName);
-            //queryingManager.importIndex(p, pr, indexName);
+            ((ApiRemoteManager) queryingManager).importIndex(this.indexPath, this.indexPrefix, this.indexName);
         } catch (Exception e) {
             logger.error("Failed to load index. " + Index.getLastIndexLoadError());
             throw new IllegalArgumentException("Failed to load index: " + Index.getLastIndexLoadError());

@@ -170,7 +170,13 @@ public class TrecTerrier {
 
 	private static boolean use_jtrec_eval = true;
 
+	/**
+	 * Index properties used for remote querying
+	 */
 	protected boolean remote = false;
+	protected String remPath = "";
+	protected String remPrefix = "";
+	protected String remName = "";
 	/**
 	 * Prints the version information about Terrier
 	 */
@@ -315,13 +321,26 @@ public class TrecTerrier {
 					c = Double.parseDouble(args[pos].substring(2));
 				}
 			}
-			else if(args[pos].equals("-remote")){
-				remote = true;
-			}
 			else if (evaluation)
 			{
 				evaluationFilename= args[pos];
-			} else {
+			}
+			else if(args[pos].equals("-remote")){
+				remote = true;
+			}
+			else if(args[pos].contains("-path")){
+				String[] splitArg = args[pos].split("=");
+				remPath = splitArg[1];
+			}
+			else if(args[pos].contains("-prefix")){
+				String[] splitArg = args[pos].split("=");
+				remPrefix = splitArg[1];
+			}
+			else if(args[pos].contains("-indexName")){
+				String[] splitArg = args[pos].split("=");
+				remName = splitArg[1];
+			}
+			else {
 				unknownOption = args[pos];
 				return ERROR_UNKNOWN_OPTION;
 			}
@@ -402,7 +421,7 @@ public class TrecTerrier {
 
 			TRECQuerying trecQuerying = null;
 			if(remote){
-				trecQuerying = new RemoteTrecQuerying();
+				trecQuerying = new RemoteTrecQuerying(remPath, remPrefix, remName);
 			} else{
 				trecQuerying = new LocalTRECQuerying(queryexpand);
 			}

@@ -19,14 +19,11 @@ public class RemoteTrecQuerying extends TRECQuerying {
     protected String indexName;
 
     public RemoteTrecQuerying(String path, String prefix, String name, boolean _queryexpansion) {
-        if (path == null || path.equals("")) {
-            this.indexPath = ApplicationSetup.TERRIER_INDEX_PATH;
-        } else {
-            this.indexPath = path;
-        }
+
+        this.indexPath = path;
 
         if (prefix == null || prefix.equals("")) {
-            this.indexPrefix = ApplicationSetup.TERRIER_INDEX_PREFIX;
+            this.indexPrefix = "data";
         } else {
             this.indexPrefix = prefix;
         }

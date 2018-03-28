@@ -85,7 +85,7 @@ public class ApiRemoteManager implements ManagerInterface {
     }
 
     @Override
-    public void runSearchRequest(SearchRequest searchRequest){}
+    public void runSearchRequest(SearchRequest searchRequest){ runSearchRequest("index", searchRequest);}
 
     @Override
     public Index getIndex() {

@@ -57,52 +57,12 @@ import org.terrier.structures.Index;
 import org.terrier.terms.BaseTermPipelineAccessor;
 import org.terrier.terms.TermPipelineAccessor;
 import org.terrier.utility.ApplicationSetup;
-/**
- * This class is responsible for handling/co-ordinating the main high-level
- * operations of a query. These are:
- * <li>Pre Processing (Term Pipeline, Control finding, term aggregration)</li>
- * <li>Matching</li>
- * <li>Post-processing @see org.terrier.querying.PostProcess </li>
- * <li>Post-filtering @see org.terrier.querying.PostFilter </li>
- * &lt;/ul&gt;
- * Example usage:
- * <pre>
- * Manager m = new Manager(index);
- * SearchRequest srq = m.newSearchRequest("Q1", "term1 title:term2");
- * m.runSearchRequest(srq);
- * </pre>
- * <p>
- * <b>Properties</b><ul>
- * <li><tt>querying.default.controls</tt> - sets the default controls for each query</li>
- * <li><tt>querying.allowed.controls</tt> - sets the controls which a users is allowed to set in a query</li>
- * <li><tt>querying.postprocesses.order</tt> - the order post processes should be run in</li>
- * <li><tt>querying.postprocesses.controls</tt> - mappings between controls and the post processes they should cause</li>
- * <li><tt>querying.preprocesses.order</tt> - the order pre processes should be run in</li>
- * <li><tt>querying.preprocesses.controls</tt> - mappings between controls and the pre processes they should cause</li>
- * <li><tt>querying.postfilters.order</tt> - the order post filters should be run in </li>
- * <li><tt>querying.postfilters.controls</tt> - mappings between controls and the post filters they should cause</li>
- * </ul>
- * <p><b>Controls</b><ul>
- * <li><tt>start</tt> : The result number to start at - defaults to 0 (1st result)</li>
- * <li><tt>end</tt> : the result number to end at - defaults to 0 (display all results)</li>
- * <li><tt>c</tt> : the c parameter for the DFR models, or more generally, the parameters for weighting model scheme</li>
- * </ul>
- */
+
 public interface ManagerInterface {
-    /** Provide a common interface for changing property values.
-     * @param key Key of property to set
-     * @param value Value of property to set */
     void setProperty(String key, String value);
 
-    /** Set all these properties. Implemented using setProperty(String,String).
-     * @param p All properties to set */
     void setProperties(Properties p);
 
-    /**
-     * This runs a given SearchRequest through the four retrieval stages and adds the ResultSet to the
-     * SearchRequest object.
-     * @param srq - the SearchRequest to be processed
-     */
     void runSearchRequest(SearchRequest srq);
 
     Index getIndex();

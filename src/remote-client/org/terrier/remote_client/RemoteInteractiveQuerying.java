@@ -62,12 +62,6 @@ public class RemoteInteractiveQuerying extends AbstractInteractiveQuerying{
         }
 
         public void processQuery(String queryId, String query, double cParameter) {
-            Query q = null;
-            try{
-                q = QueryParser.parseQuery(query);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
 
             SearchRequest srq = queryingManager.newSearchRequest(queryId, query);
             srq.setControl("c", Double.toString(cParameter));
